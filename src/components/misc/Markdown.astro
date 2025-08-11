@@ -4,14 +4,17 @@ import "@fontsource-variable/jetbrains-mono/wght-italic.css";
 
 interface Props {
 	class: string;
+	content?: string;
 }
-const className = Astro.props.class;
+const { class: className, content } = Astro.props;
 ---
-<div data-pagefind-body class={`prose dark:prose-invert prose-base !max-w-none custom-md ${className}`}>
-    <!--<div class="prose dark:prose-invert max-w-none custom-md">-->
-    <!--<div class="max-w-none custom-md">-->
-    <slot/>
-</div>
+{content ? (
+    <div data-pagefind-body class={`prose dark:prose-invert prose-base !max-w-none custom-md ${className}`} set:html={content}></div>
+) : (
+    <div data-pagefind-body class={`prose dark:prose-invert prose-base !max-w-none custom-md ${className}`}>
+        <slot/>
+    </div>
+)}
 
 <script>
 document.addEventListener("click", function (e: MouseEvent) {
